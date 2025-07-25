@@ -6,7 +6,7 @@
                 <p style="margin-right: 3px;">Отобразить товары:</p>
                 <div class="pagination">
                     <p 
-                    v-for="n in 5" 
+                    v-for="n in maxButtons" 
                     :key="n"
                     @click="storePhones.setPhonesForComparison(n + 1)"
                     class="number-button"
@@ -72,6 +72,13 @@ const handleCheckboxChange = (event: { target: HTMLInputElement }) => {
     storePhones.returnFullArr();
   }
 };
+
+const maxButtons = computed(() => {
+  const modelCount = storePhones.allModels.length;
+  if (modelCount < 2) return 0;
+  if (modelCount <= 6) return modelCount - 1;
+  return 5;
+});
 
 const displayedModels = computed(() => storePhones.paginationModels);
 
